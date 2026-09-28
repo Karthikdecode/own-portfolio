@@ -5,6 +5,7 @@ import { SITE_CONFIG } from "@/lib/constants";
 import { Providers } from "@/app/providers";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { ConnectingPathway } from "@/components/navigation/ConnectingPathway";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -68,6 +69,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="flex min-h-full flex-col bg-background text-foreground">
         <Providers>
+          <ConnectingPathway />
           <a
             href="#main"
             className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-foreground focus:px-3 focus:py-2 focus:text-background"
