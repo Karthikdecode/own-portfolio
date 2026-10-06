@@ -12,7 +12,7 @@ export function EditorialStatement() {
     <section
       id="statement"
       aria-label="Statement"
-      className="relative overflow-hidden py-32 md:py-52"
+      className="relative overflow-hidden py-24 md:py-32"
     >
       {/* Subtle background accent */}
       <div
@@ -25,7 +25,7 @@ export function EditorialStatement() {
       />
 
       <PageContainer size="wide">
-        <Reveal className="mb-12 md:mb-16">
+        <Reveal className="mb-8 md:mb-10">
           <p className="font-mono text-xs uppercase tracking-[0.3em] text-accent">
             The approach
           </p>
@@ -38,7 +38,7 @@ export function EditorialStatement() {
           stagger={0.15}
         />
 
-        <Reveal delay={0.3} className="mt-12 md:mt-16 max-w-2xl">
+        <Reveal delay={0.3} className="mt-8 md:mt-10 max-w-2xl">
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}

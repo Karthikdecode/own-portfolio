@@ -6,21 +6,23 @@ export const SITE_URL =
   "http://localhost:3000";
 
 export const SITE_CONFIG = {
-  name: "Karthik",
+  name: "Karthik P",
   brand: "KARTHIK.DEV",
-  title: "Karthik — Full-Stack Developer",
+  title: "Karthik P — Full-Stack Developer",
   description:
-    "Full-Stack Developer building modern web applications across frontend, backend, APIs and databases.",
+    "Full-Stack Developer building scalable web and mobile applications with Node.js, Express.js, React, Next.js, React Native and PostgreSQL.",
   url: SITE_URL,
   ogImage: `${SITE_URL}/images/og.png`,
   locale: "en_US",
-  author: "Karthik",
+  author: "Karthik P",
   keywords: [
     "Full-Stack Developer",
-    "Web Developer",
+    "Node.js Developer",
+    "React Developer",
     "Next.js",
-    "React",
-    "Node.js",
+    "React Native",
+    "Express.js",
+    "PostgreSQL",
     "TypeScript",
     "Portfolio",
   ],
@@ -32,6 +34,7 @@ export const SECTION_IDS = [
   "about",
   "tech-stack",
   "experience",
+  "education",
   "projects",
   "architecture",
   "resume",
@@ -56,10 +59,14 @@ export const VOICE = {
   contact: "/audio/contact.mp3",
 } as const;
 
-/** Public asset paths. */
+/** Public asset paths. The résumé is hosted on Google Drive, not in /public. */
 export const ASSETS = {
-  portrait: "/images/profile/profile.webp",
-  resume: "/resume/resume.pdf",
+  // Square source; next/image serves optimised WebP/AVIF from the JPG.
+  portrait: "/images/karthik-image.jpg",
+  resume:
+    "https://drive.google.com/file/d/17kBFMHbn2IdOKWBKD9AZnrVyJCUE2-e_/view?usp=drivesdk",
+  resumeDownload:
+    "https://drive.google.com/uc?export=download&id=17kBFMHbn2IdOKWBKD9AZnrVyJCUE2-e_",
 } as const;
 
 /** Breakpoints (px) mirrored from the design tokens for JS media queries. */

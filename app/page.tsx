@@ -4,6 +4,7 @@ import { ASSETS } from "@/lib/constants";
 import { About } from "@/components/about/About";
 import { TechStack } from "@/components/tech-stack/TechStack";
 import { Experience } from "@/components/experience/Experience";
+import { Education } from "@/components/education/Education";
 import { Projects } from "@/components/projects/Projects";
 import { EditorialStatement } from "@/components/editorial/EditorialStatement";
 import { Architecture } from "@/components/architecture/Architecture";
@@ -19,6 +20,7 @@ export default function Home() {
       <About />
       <TechStack />
       <Experience />
+      <Education />
       <Projects />
       <EditorialStatement />
       <Architecture />

@@ -4,7 +4,7 @@ import { PERSONAL } from "@/data/portfolio";
 
 /**
  * Premium monogram fallback for the profile portrait.
- * Shows when /images/profile/profile.webp is not available.
+ * Shows when the portrait at ASSETS.portrait is not available.
  * Intentionally designed as part of the visual system, not an error state.
  */
 export function ProfileFallback() {

@@ -7,6 +7,7 @@ export type SectionId =
   | "about"
   | "tech-stack"
   | "experience"
+  | "education"
   | "projects"
   | "architecture"
   | "resume"
@@ -47,6 +48,8 @@ export interface PersonalInfo {
   experience: string;
   location?: string;
   email: string;
+  /** Contact number in international format, e.g. "+91 7708919726". */
+  phone?: string;
   /** Public path to the editorial portrait, e.g. "/images/profile/profile.webp". */
   avatar: string;
   /** One or two sentence positioning statement. */

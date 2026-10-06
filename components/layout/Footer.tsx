@@ -39,9 +39,9 @@ export function Footer() {
           })}
         </ul>
 
-        <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
+        {/* <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted-foreground">
           Built with Next.js
-        </p>
+        </p> */}
       </PageContainer>
     </footer>
   );

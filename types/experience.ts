@@ -21,6 +21,7 @@ export type TechCategory =
   | "frontend"
   | "backend"
   | "database"
+  | "security"
   | "devops"
   | "tooling";
 

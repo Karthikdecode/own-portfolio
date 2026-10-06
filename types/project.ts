@@ -26,6 +26,8 @@ export interface Project {
   image?: string;
   /** Visual type for fallback when no image is present. */
   visualType?: "browser" | "api" | "dashboard";
+  /** Short availability note, e.g. "Available on Play Store". */
+  badge?: string;
   /** Release / build year. */
   year?: number;
   featured?: boolean;

@@ -22,7 +22,7 @@ const blurReveal = {
 /** 07 — Contact: whitespace-driven ending with details + a working form. */
 export function Contact() {
   return (
-    <Section id="contact" label="07 — CONTACT">
+    <Section id="contact" label="08 — CONTACT">
       <div className="grid gap-16 lg:grid-cols-2 lg:gap-24">
         <div>
           <Reveal variants={blurReveal}>
@@ -51,6 +51,17 @@ export function Contact() {
                   {PERSONAL.email}
                 </a>
               </p>
+              {PERSONAL.phone && (
+                <p className="text-sm text-muted-foreground">
+                  Call or message{" "}
+                  <a
+                    href={`tel:${PERSONAL.phone.replace(/\s/g, "")}`}
+                    className="font-mono text-accent hover:underline"
+                  >
+                    {PERSONAL.phone}
+                  </a>
+                </p>
+              )}
             </div>
           </Reveal>
 

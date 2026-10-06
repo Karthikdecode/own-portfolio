@@ -56,22 +56,22 @@ export const HERO_PANELS: HeroPanel[] = [
   {
     index: "01",
     title: "Identity",
-    lines: ["Karthik", "Full-Stack Developer", "1+ year experience"],
+    lines: ["Karthik P", "Full-Stack Developer", "1.3 years experience"],
   },
   {
     index: "02",
     title: "Frontend",
-    lines: ["Next.js", "React", "TypeScript"],
+    lines: ["Next.js", "React", "React Native"],
   },
   {
     index: "03",
     title: "Backend",
-    lines: ["Node.js", "Express.js", "REST APIs"],
+    lines: ["Node.js", "Express.js", "Socket.IO"],
   },
   {
     index: "04",
     title: "Data",
-    lines: ["PostgreSQL", "MongoDB", "Redis"],
+    lines: ["PostgreSQL", "MongoDB", "Prisma"],
   },
 ];
 

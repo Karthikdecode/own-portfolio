@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { NAV_LINKS } from "@/lib/constants";
 import { PERSONAL } from "@/data/portfolio";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
@@ -140,12 +141,32 @@ export function Navbar() {
             aria-expanded={open}
             aria-controls="mobile-menu"
             aria-label={open ? "Close menu" : "Open menu"}
-            className="flex h-11 w-11 items-center justify-center"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-border bg-surface/60 transition-colors hover:border-foreground/40"
           >
-            <span className="relative block h-4 w-6" aria-hidden>
-              <span className="absolute left-0 top-0 block h-px w-6 bg-foreground" />
-              <span className="absolute left-0 top-1/2 block h-px w-6 -translate-y-1/2 bg-foreground" />
-              <span className="absolute bottom-0 left-0 block h-px w-6 bg-foreground" />
+            {/*
+              Bars share one transform function list (translate → rotate) so the
+              browser interpolates them smoothly instead of snapping via matrix.
+            */}
+            <span className="relative block h-4 w-5" aria-hidden>
+              <span
+                className="absolute left-0 top-1/2 block h-[1.5px] w-5 rounded-full bg-foreground transition-transform duration-300 ease-out"
+                style={{
+                  transform: `translateY(-50%) translateY(${open ? 0 : -5}px) rotate(${open ? 45 : 0}deg)`,
+                }}
+              />
+              <span
+                className="absolute left-0 top-1/2 block h-[1.5px] w-5 -translate-y-1/2 rounded-full bg-foreground transition-all duration-300 ease-out"
+                style={{
+                  opacity: open ? 0 : 1,
+                  transform: `translateY(-50%) scaleX(${open ? 0 : 1})`,
+                }}
+              />
+              <span
+                className="absolute left-0 top-1/2 block h-[1.5px] w-5 rounded-full bg-foreground transition-transform duration-300 ease-out"
+                style={{
+                  transform: `translateY(-50%) translateY(${open ? 0 : 5}px) rotate(${open ? -45 : 0}deg)`,
+                }}
+              />
             </span>
           </button>
         </div>
@@ -176,7 +197,9 @@ export function Navbar() {
         <div
           ref={panelRef}
           className={cn(
-            "pt-safe container-px absolute inset-x-0 top-0 border-b border-border/60 bg-surface/95 pb-10 shadow-2xl transition-transform duration-300",
+            // Opaque surface: the old bg-surface/95 let page content bleed
+            // through and made the links hard to read.
+            "pt-safe container-px absolute inset-x-0 top-0 overflow-hidden rounded-b-[2rem] border-b border-border bg-surface pb-8 shadow-2xl transition-transform duration-500 ease-out",
             open ? "translate-y-0" : "-translate-y-full",
           )}
         >
@@ -188,30 +211,67 @@ export function Navbar() {
               type="button"
               onClick={() => setOpen(false)}
               aria-label="Close menu"
-              className="flex h-11 w-11 items-center justify-center text-foreground"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-foreground/40"
             >
               <span className="relative block h-4 w-4" aria-hidden>
-                <span className="absolute left-0 top-1/2 block h-px w-4 -translate-y-1/2 rotate-45 bg-foreground" />
-                <span className="absolute left-0 top-1/2 block h-px w-4 -translate-y-1/2 -rotate-45 bg-foreground" />
+                <span className="absolute left-0 top-1/2 block h-[1.5px] w-4 -translate-y-1/2 rotate-45 rounded-full bg-foreground" />
+                <span className="absolute left-0 top-1/2 block h-[1.5px] w-4 -translate-y-1/2 -rotate-45 rounded-full bg-foreground" />
               </span>
             </button>
           </div>
-          <ul className="mt-2 flex flex-col">
-            {NAV_LINKS.map((link) => (
-              <li key={link.href}>
+
+          {/* Links stagger in from the right; delays reset to 0 on close so the
+              panel retracts as one piece instead of unravelling. */}
+          <ul className="mt-4 flex flex-col">
+            {NAV_LINKS.map((link, index) => (
+              <li
+                key={link.href}
+                style={{
+                  transitionDelay: open ? `${160 + index * 60}ms` : "0ms",
+                }}
+                className={cn(
+                  "border-b border-border/50 transition-all duration-500 ease-out last:border-b-0",
+                  open ? "translate-x-0 opacity-100" : "translate-x-8 opacity-0",
+                )}
+              >
                 <Link
                   href={link.href}
                   onClick={(event) => {
                     event.preventDefault();
                     handleNav(link.href);
                   }}
-                  className="block py-3 font-mono text-lg uppercase tracking-widest text-foreground transition-colors hover:text-accent"
+                  className="group flex items-center justify-between py-4 font-mono text-xl uppercase tracking-widest text-foreground transition-colors hover:text-accent"
                 >
                   {link.label}
+                  <ArrowUpRight
+                    className="h-4 w-4 -translate-x-2 text-accent opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+                    aria-hidden
+                  />
                 </Link>
               </li>
             ))}
           </ul>
+
+          <div
+            style={{
+              transitionDelay: open
+                ? `${160 + NAV_LINKS.length * 60}ms`
+                : "0ms",
+            }}
+            className={cn(
+              "mt-7 transition-all duration-500 ease-out",
+              open ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0",
+            )}
+          >
+            <Button
+              href="#contact"
+              variant="primary"
+              className="w-full"
+              onClick={() => setOpen(false)}
+            >
+              Let&apos;s talk
+            </Button>
+          </div>
         </div>
       </div>
     </header>

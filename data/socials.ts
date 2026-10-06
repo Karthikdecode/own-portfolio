@@ -5,9 +5,9 @@ export const SOCIALS: SocialLink[] = [
   {
     platform: "github",
     label: "GitHub",
-    href: "https://github.com/", // TODO: real profile URL
+    href: "https://github.com/Karthikdecode",
     icon: "Github",
-    handle: "@karthik",
+    handle: "@Karthikdecode",
   },
   {
     platform: "linkedin",
@@ -19,8 +19,8 @@ export const SOCIALS: SocialLink[] = [
   {
     platform: "email",
     label: "Email",
-    href: "mailto:hello@karthik.dev", // TODO: real contact email
+    href: "mailto:karthikpandi148@gmail.com",
     icon: "Mail",
-    handle: "hello@karthik.dev",
+    handle: "karthikpandi148@gmail.com",
   },
 ];

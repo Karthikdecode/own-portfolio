@@ -17,6 +17,8 @@ interface SectionProps {
   size?: ContainerSize;
   /** When false, renders no PageContainer (for full-bleed sections). */
   contained?: boolean;
+  /** Which edge the editorial header sits against. Lets sections alternate. */
+  align?: "left" | "right";
 }
 
 /** Consistent section shell: anchor id, vertical rhythm, editorial header. */
@@ -29,16 +31,23 @@ export function Section({
   containerClassName,
   size = "default",
   contained = true,
+  align = "left",
 }: SectionProps) {
+  const alignRight = align === "right";
   const header = (label || title) && (
-    <Reveal className="mb-10 md:mb-16">
+    <Reveal className={cn("mb-10 md:mb-16", alignRight && "md:text-right")}>
       {label && (
         <p className="font-mono text-xs uppercase tracking-[0.3em] text-accent">
           {label}
         </p>
       )}
       {title && (
-        <h2 className="mt-4 max-w-3xl text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
+        <h2
+          className={cn(
+            "mt-4 max-w-3xl text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl",
+            alignRight && "md:ml-auto",
+          )}
+        >
           {title}
         </h2>
       )}

@@ -10,15 +10,16 @@ import { ASSETS, VOICE } from "@/lib/constants";
 // Do not add companies, clients, metrics or credentials that aren't real.
 
 export const PERSONAL: PersonalInfo = {
-  name: "Karthik",
+  name: "Karthik P",
   brand: "KARTHIK.DEV",
   role: "Full-Stack Developer",
-  experience: "1+ year",
-  location: "Remote",
-  email: "hello@karthik.dev", // TODO: replace with the real contact email
+  experience: "1.3 years",
+  location: "Madurai, Tamil Nadu, India",
+  email: "karthikpandi148@gmail.com",
+  phone: "+91 7708919726",
   avatar: ASSETS.portrait,
   tagline: "Building digital experiences from frontend to backend.",
-  bio: "Full-Stack Developer with over a year of experience building modern web applications across frontend, backend, APIs and databases.",
+  bio: "Full-Stack Developer with 1.3 years of experience building scalable web applications and REST APIs with Node.js, Express.js, React.js, Next.js and PostgreSQL/MongoDB, plus React Native for cross-platform mobile.",
   available: true,
 };
 
@@ -26,7 +27,7 @@ export const HERO: HeroContent = {
   label: "HELLO, I'M KARTHIK",
   headline: ["FULL-STACK", "DEVELOPER"],
   paragraph:
-    "I build modern web applications across frontend, backend, APIs, databases and deployment.",
+    "I build scalable web and mobile applications — REST and real-time APIs, secure auth, and the data layer behind them.",
   cardTech: ["NEXT.JS", "REACT", "NODE.JS"],
   cardIndex: "01 / DEVELOPER",
   voice: {
@@ -49,13 +50,13 @@ export const ABOUT: AboutContent = {
   label: "01 — ABOUT",
   statement: ["BUILDING", "DIGITAL", "EXPERIENCES."],
   paragraphs: [
-    "I'm a full-stack developer who enjoys turning ideas into fast, reliable products — from the interface a person touches to the APIs, data and infrastructure behind it.",
-    "I care about clean architecture, thoughtful motion and details that make a product feel considered. I'm always learning, and I build with the whole stack in mind.",
+    "I'm a full-stack developer based in Madurai, working across backend services, web frontends and cross-platform mobile. Most of my work lives on the server side — REST and WebSocket APIs, authentication, and the database design behind them.",
+    "I've shipped an agri-commerce marketplace, a rural logistics app, a construction ERP and a real-time market dashboard. I care about clean architecture, secure access control and queries that stay fast as data grows.",
   ],
   stats: [
-    { value: "1+", label: "Year experience" },
-    { value: "Full-Stack", label: "Discipline" },
-    { value: "14+", label: "Technologies" },
+    { value: "1.3", label: "Years experience" },
+    { value: "4", label: "Products shipped" },
+    { value: "M.Sc.", label: "Computer Science" },
   ],
 };
 

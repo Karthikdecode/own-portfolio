@@ -116,6 +116,11 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
         >
           {project.title}
         </h2>
+        {project.badge && (
+          <p className="mt-2 inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-3 py-1 font-mono text-[10px] uppercase tracking-widest text-accent">
+            {project.badge}
+          </p>
+        )}
 
         <div className="mt-6 space-y-6">
           {project.description && (
