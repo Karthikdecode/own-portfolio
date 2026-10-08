@@ -16,7 +16,6 @@ import { useVoice } from "@/hooks/useVoice";
 import { useScrollTo } from "@/hooks/useScrollTo";
 import { useMounted } from "@/hooks/useMounted";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { useHeroTimeline } from "@/hooks/useHeroTimeline";
 import { EASE_OUT } from "@/lib/motion";
 import { HERO, PERSONAL } from "@/data/portfolio";
@@ -48,21 +47,20 @@ export function Hero({ hasPortrait }: HeroProps) {
   const mounted = useMounted();
   const isDesktop = useMediaQuery("(min-width: 1024px)");
   const isTablet = useMediaQuery("(min-width: 768px)");
-  const reducedMotion = useReducedMotion();
 
   const breakpoint = resolveHeroBreakpoint(isDesktop, isTablet);
-  const animated = mounted && !reducedMotion;
 
   const { sceneRef, pinRef } = useHeroTimeline({
     breakpoint,
-    disabled: !animated,
+    disabled: !mounted,
   });
 
   const hasStarted = voice.isPlaying || voice.currentTime > 0;
   const techCue = HERO.voice.cues.find((cue) => cue.id === "tech");
   const techActive = voice.progress >= (techCue?.at ?? 1);
 
-  const show3D = mounted && isTablet && !reducedMotion;
+  // The WebGL backdrop stays tablet-up purely for phone GPU/battery headroom.
+  const show3D = mounted && isTablet;
   const dark = resolvedTheme !== "light";
 
   return (
@@ -98,7 +96,7 @@ export function Hero({ hasPortrait }: HeroProps) {
                 <motion.p
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, ease: EASE_OUT }}
+                  transition={{ duration: 0.45, ease: EASE_OUT }}
                   className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground"
                 >
                   <span className="h-px w-6 bg-accent" aria-hidden />
@@ -119,9 +117,9 @@ export function Hero({ hasPortrait }: HeroProps) {
                         initial={{ y: "110%" }}
                         animate={{ y: "0%" }}
                         transition={{
-                          duration: 0.9,
+                          duration: 0.7,
                           ease: EASE_OUT,
-                          delay: 0.15 + index * 0.12,
+                          delay: 0.1 + index * 0.09,
                         }}
                       >
                         {word}
@@ -133,7 +131,7 @@ export function Hero({ hasPortrait }: HeroProps) {
                 <motion.p
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, ease: EASE_OUT, delay: 0.4 }}
+                  transition={{ duration: 0.5, ease: EASE_OUT, delay: 0.3 }}
                   className="mt-6 max-w-md text-base leading-relaxed text-muted-foreground sm:text-lg"
                 >
                   {HERO.paragraph}
@@ -142,7 +140,7 @@ export function Hero({ hasPortrait }: HeroProps) {
                 <motion.div
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, ease: EASE_OUT, delay: 0.55 }}
+                  transition={{ duration: 0.5, ease: EASE_OUT, delay: 0.4 }}
                   className="mt-8 flex flex-wrap items-center gap-3"
                 >
                   <Button href="#projects" variant="primary" aria-label="View my work">
@@ -157,7 +155,7 @@ export function Hero({ hasPortrait }: HeroProps) {
                 <motion.div
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.7, ease: EASE_OUT, delay: 0.7 }}
+                  transition={{ duration: 0.5, ease: EASE_OUT, delay: 0.5 }}
                   className="mt-8"
                 >
                   {hasStarted ? (
@@ -185,7 +183,7 @@ export function Hero({ hasPortrait }: HeroProps) {
                 <motion.ul
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  transition={{ duration: 0.7, ease: EASE_OUT, delay: 0.85 }}
+                  transition={{ duration: 0.5, ease: EASE_OUT, delay: 0.6 }}
                   className="mt-10 flex items-center gap-3"
                 >
                   {SOCIALS.map((social) => {
@@ -231,7 +229,7 @@ export function Hero({ hasPortrait }: HeroProps) {
           onClick={() => scrollTo("#about")}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.1, duration: 0.8 }}
+          transition={{ delay: 0.8, duration: 0.6 }}
           aria-label="Scroll to about section"
           className="bottom-safe absolute left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-muted-foreground md:flex"
         >

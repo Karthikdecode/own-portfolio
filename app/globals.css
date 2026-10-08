@@ -245,23 +245,3 @@ html.lenis body {
   --hero-float: 6px;
   animation: hero-card-float 6s ease-in-out infinite;
 }
-
-/* Respect reduced-motion globally as a safety net. */
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  body {
-    transition: none;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}

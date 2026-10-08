@@ -3,14 +3,12 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Reveal } from "@/components/motion/Reveal";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
 import { ARCHITECTURE } from "@/data/architecture";
 import { cn } from "@/lib/utils";
 
 /** Interactive vertical data-flow. Hover/focus a layer to emphasise it. */
 export function ArchitectureFlow() {
   const [active, setActive] = useState<string | null>(null);
-  const reducedMotion = useReducedMotion();
 
   return (
     <div className="relative mx-auto max-w-2xl">
@@ -18,15 +16,13 @@ export function ArchitectureFlow() {
         aria-hidden
         className="absolute bottom-6 left-[23px] top-6 w-px bg-border"
       />
-      {!reducedMotion && (
-        <motion.span
-          aria-hidden
-          className="absolute left-[23px] h-16 w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-accent to-transparent"
-          initial={{ top: "0%" }}
-          animate={{ top: ["0%", "92%"] }}
-          transition={{ duration: 4, ease: "linear", repeat: Infinity }}
-        />
-      )}
+      <motion.span
+        aria-hidden
+        className="absolute left-[23px] h-16 w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-accent to-transparent"
+        initial={{ top: "0%" }}
+        animate={{ top: ["0%", "92%"] }}
+        transition={{ duration: 4, ease: "linear", repeat: Infinity }}
+      />
 
       <ul className="space-y-3">
         {ARCHITECTURE.map((layer, index) => {

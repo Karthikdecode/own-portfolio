@@ -49,13 +49,14 @@ export function useHeroTimeline({
 
     gsap.registerPlugin(ScrollTrigger);
 
-    // Reduced motion: no pinning, no timeline. Every element keeps its natural
+    // Before mount: no pinning, no timeline. Every element keeps its natural
     // resting state from the markup, so the scene stays fully readable.
     if (disabled) return;
 
     const motion = HERO_CARD_MOTION[breakpoint];
     const distance = HERO_SCROLL_DISTANCE[breakpoint];
     const steps = HERO_SCROLL_STEPS;
+    const isMobile = breakpoint === "mobile";
 
     const ctx = gsap.context(() => {
       const timeline = gsap.timeline({
@@ -68,7 +69,9 @@ export function useHeroTimeline({
           pinSpacing: true,
           anticipatePin: 1,
           // scrub adds the inertia/damping — motion lags the scroll slightly.
-          scrub: 1,
+          // Touch scrolling already has momentum, so phones get a tighter
+          // follow; a full second of lag there reads as stutter.
+          scrub: isMobile ? 0.3 : 1,
           invalidateOnRefresh: true,
         },
       });
@@ -89,14 +92,18 @@ export function useHeroTimeline({
       // --- Progressive 01 → 04 panels, evenly spread across the reveal window ---
       const panels = gsap.utils.toArray<HTMLElement>('[data-hero="panel"]');
       const perPanel = steps.panelsReveal.duration / Math.max(panels.length, 1);
+      // Animating a blur filter repaints every frame — fine on a desktop GPU,
+      // the main source of jank on phones. Mobile keeps the fade-and-rise.
+      const blurFrom = isMobile ? {} : { filter: "blur(6px)" };
+      const blurTo = isMobile ? {} : { filter: "blur(0px)" };
       panels.forEach((panel, index) => {
         timeline.fromTo(
           panel,
-          { opacity: 0, y: 28, filter: "blur(6px)" },
+          { opacity: 0, y: 28, ...blurFrom },
           {
             opacity: 1,
             y: 0,
-            filter: "blur(0px)",
+            ...blurTo,
             ease: "power2.out",
             duration: perPanel * 0.85,
           },

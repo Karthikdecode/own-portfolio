@@ -9,12 +9,10 @@ import {
   AnimatePresence,
 } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { PageContainer } from "@/components/layout/PageContainer";
 import { ProjectRow } from "@/components/projects/ProjectRow";
 import { ProjectModal } from "@/components/projects/ProjectModal";
 import { PROJECTS } from "@/data/projects";
 import type { Project } from "@/types/project";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 /**
  * Project showcase — pinned right-to-left scroll at every breakpoint.
@@ -28,7 +26,6 @@ import { useReducedMotion } from "@/hooks/useReducedMotion";
 export function ProjectShowcase() {
   const [selected, setSelected] = useState<Project | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const isReducedMotion = useReducedMotion();
   const [activeStep, setActiveStep] = useState(0);
 
   const { scrollYProgress } = useScroll({
@@ -51,45 +48,6 @@ export function ProjectShowcase() {
     setActiveStep((current) => (current === step ? current : step));
   });
 
-  const rows = PROJECTS.map((project, index) => (
-    <ProjectRow
-      key={project.id}
-      project={project}
-      index={index}
-      onSelect={setSelected}
-    />
-  ));
-
-  const slides = PROJECTS.map((project, index) => (
-    <div
-      key={project.id}
-      className="w-screen shrink-0 px-4 sm:px-6 lg:w-[58rem] lg:px-8"
-    >
-      <ProjectRow project={project} index={index} onSelect={setSelected} />
-    </div>
-  ));
-
-  const modal = (
-    <AnimatePresence>
-      {selected && (
-        <ProjectModal project={selected} onClose={() => setSelected(null)} />
-      )}
-    </AnimatePresence>
-  );
-
-  // --- Reduced motion: no pinning or sliding, just a readable list ---
-  if (isReducedMotion) {
-    return (
-      <>
-        <PageContainer>
-          <div className="flex flex-col">{rows}</div>
-        </PageContainer>
-        {modal}
-      </>
-    );
-  }
-
-  // --- Pinned right-to-left scroll ---
   return (
     <>
       <div ref={containerRef} className="relative h-[200vh] md:h-[240vh]">
@@ -113,8 +71,22 @@ export function ProjectShowcase() {
 
           {/* Horizontal slider track — no gap, see the note above */}
           <div className="w-full overflow-hidden">
-            <motion.div style={{ x: transformX }} className="flex w-max">
-              {slides}
+            <motion.div
+              style={{ x: transformX }}
+              className="flex w-max will-change-transform"
+            >
+              {PROJECTS.map((project, index) => (
+                <div
+                  key={project.id}
+                  className="w-screen shrink-0 px-4 sm:px-6 lg:w-[58rem] lg:px-8"
+                >
+                  <ProjectRow
+                    project={project}
+                    index={index}
+                    onSelect={setSelected}
+                  />
+                </div>
+              ))}
             </motion.div>
           </div>
 
@@ -134,7 +106,11 @@ export function ProjectShowcase() {
         </div>
       </div>
 
-      {modal}
+      <AnimatePresence>
+        {selected && (
+          <ProjectModal project={selected} onClose={() => setSelected(null)} />
+        )}
+      </AnimatePresence>
     </>
   );
 }

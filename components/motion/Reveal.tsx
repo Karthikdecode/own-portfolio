@@ -14,13 +14,17 @@ interface RevealProps {
   once?: boolean;
 }
 
-/** Fade-and-rise on scroll into view. Respects reduced motion via MotionConfig. */
+/**
+ * Fade-and-rise on scroll into view.
+ * A low `amount` triggers as soon as a sliver is visible — on a phone a tall
+ * block may never reach 30% in view, which would leave it waiting.
+ */
 export function Reveal({
   children,
   className,
   variants,
   delay = 0,
-  amount = 0.3,
+  amount = 0.15,
   once = true,
 }: RevealProps) {
   const resolved: Variants = variants ?? {
@@ -28,7 +32,7 @@ export function Reveal({
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.7, ease: EASE_OUT, delay },
+      transition: { duration: 0.5, ease: EASE_OUT, delay },
     },
   };
 
@@ -58,7 +62,7 @@ export function RevealLines({
   lines,
   className,
   lineClassName,
-  stagger = 0.09,
+  stagger = 0.07,
   once = true,
 }: RevealLinesProps) {
   return (
@@ -66,7 +70,7 @@ export function RevealLines({
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once, amount: 0.4 }}
+      viewport={{ once, amount: 0.25 }}
     >
       {lines.map((line, index) => (
         <span key={`${line}-${index}`} className="block overflow-hidden">
@@ -77,7 +81,7 @@ export function RevealLines({
               visible: {
                 y: "0%",
                 transition: {
-                  duration: 0.85,
+                  duration: 0.6,
                   ease: EASE_OUT,
                   delay: index * stagger,
                 },

@@ -3,13 +3,9 @@
 import type { ReactNode } from "react";
 import { useEffect } from "react";
 import { ThemeProvider } from "next-themes";
-import { MotionConfig } from "framer-motion";
 import { ReactLenis } from "lenis/react";
-import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 function SmoothScroll({ children }: { children: ReactNode }) {
-  const reducedMotion = useReducedMotion();
-
   /**
    * react-three-fiber instantiates a THREE.Clock in its own store, which Three
    * r183+ warns about on construction. Our scene code never touches Clock, so
@@ -30,7 +26,7 @@ function SmoothScroll({ children }: { children: ReactNode }) {
   return (
     <ReactLenis
       root
-      options={{ lerp: 0.1, duration: 1.1, smoothWheel: !reducedMotion }}
+      options={{ lerp: 0.1, duration: 1.1 }}
     >
       {children}
     </ReactLenis>
@@ -40,15 +36,16 @@ function SmoothScroll({ children }: { children: ReactNode }) {
 /**
  * App-wide client providers:
  * - next-themes: class-based light/dark, system default, persisted, no FOUC.
- * - MotionConfig reducedMotion="user": Framer Motion honours prefers-reduced-motion.
- * - Lenis: smooth inertia scrolling (disabled under reduced motion).
+ * - Lenis: smooth inertia scrolling.
+ *
+ * Animation is deliberately NOT gated on prefers-reduced-motion: phones turn
+ * that on with battery saver, which silently stripped the site's motion. The
+ * same full experience now runs on every device.
  */
 export function Providers({ children }: { children: ReactNode }) {
   return (
     <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-      <MotionConfig reducedMotion="user">
-        <SmoothScroll>{children}</SmoothScroll>
-      </MotionConfig>
+      <SmoothScroll>{children}</SmoothScroll>
     </ThemeProvider>
   );
 }
