@@ -14,13 +14,14 @@ export function About() {
         {/* Strong visual statement with enhanced typography */}
         <div>
           <RevealLines
+            as="h2"
             lines={ABOUT.statement}
             className="text-display text-[clamp(2.25rem,7vw,4.5rem)]"
             stagger={0.12}
           />
           <Reveal delay={0.4}>
             <p className="mt-8 max-w-sm text-sm leading-relaxed text-muted-foreground">
-              Specialized in building scalable, user-focused digital products with attention to detail and code quality.
+              Node.js and Express.js backends, React and Next.js frontends, React Native mobile apps — with secure auth, real-time APIs and well-designed databases.
             </p>
           </Reveal>
         </div>

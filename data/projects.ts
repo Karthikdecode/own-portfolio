@@ -8,7 +8,7 @@ export const PROJECTS: Project[] = [
     slug: "velaan-bay-cargo",
     title: "Velaan Bay & Velaan Cargo",
     summary:
-      "An agri-commerce marketplace and a rural logistics app connecting farmers directly with buyers and drivers.",
+      "An agri-commerce marketplace and a rural logistics app connecting farmers with buyers and drivers — I build the Node.js REST APIs, PostgreSQL/MongoDB data layer and AWS deployment.",
     description:
       "Two linked products for rural agriculture. Velaan Bay is a direct farmer-to-buyer marketplace; Velaan Cargo handles the consignment booking and tracking that moves the produce.",
     category: "full-stack",
@@ -38,7 +38,7 @@ export const PROJECTS: Project[] = [
     slug: "construct-solutions",
     title: "Construct Solutions",
     summary:
-      "A construction management ERP with multi-tenant access control and reporting APIs.",
+      "A construction management ERP with role-based access control across a multi-tenant architecture for secure data isolation, plus reporting and analytics APIs.",
     description:
       "An ERP platform that manages construction business workflows, built for multiple tenants sharing one deployment without sharing data.",
     category: "full-stack",
@@ -65,7 +65,7 @@ export const PROJECTS: Project[] = [
     slug: "crypto-market-dashboard",
     title: "Crypto Market Dashboard",
     summary:
-      "A real-time cryptocurrency tracker streaming live market data over WebSockets.",
+      "A real-time cryptocurrency tracker streaming live market data over Socket.IO WebSockets, with optimised REST APIs for market data and watchlists.",
     description:
       "A market dashboard backed by WebSocket streams for live pricing and REST endpoints for market data and user watchlists.",
     category: "backend",

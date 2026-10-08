@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SITE_CONFIG } from "@/lib/constants";
+import { buildStructuredData } from "@/lib/structuredData";
 import { Providers } from "@/app/providers";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
@@ -21,19 +22,27 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_CONFIG.url),
   title: {
     default: SITE_CONFIG.title,
-    template: `%s — ${SITE_CONFIG.name}`,
+    template: `%s | ${SITE_CONFIG.name}`,
   },
   description: SITE_CONFIG.description,
+  applicationName: `${SITE_CONFIG.name} — Portfolio`,
   keywords: [...SITE_CONFIG.keywords],
-  authors: [{ name: SITE_CONFIG.author }],
+  authors: [{ name: SITE_CONFIG.author, url: SITE_CONFIG.url }],
   creator: SITE_CONFIG.author,
+  publisher: SITE_CONFIG.author,
+  category: "technology",
+  // Resolved against metadataBase → one absolute canonical for every variant
+  // (deploy previews, query strings, branch deploys) of the homepage.
+  alternates: { canonical: "/" },
   openGraph: {
-    type: "website",
+    type: "profile",
+    firstName: "Karthik",
+    lastName: "P",
     locale: SITE_CONFIG.locale,
-    url: SITE_CONFIG.url,
+    url: "/",
     title: SITE_CONFIG.title,
     description: SITE_CONFIG.description,
-    siteName: SITE_CONFIG.name,
+    siteName: `${SITE_CONFIG.name} — Portfolio`,
     // og:image is provided by app/opengraph-image.tsx (generated).
   },
   twitter: {
@@ -44,9 +53,19 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    googleBot: { index: true, follow: true },
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
-  alternates: { canonical: SITE_CONFIG.url },
+  // Google Search Console ownership (HTML tag method).
+  verification: {
+    google: "uoQ6XSJFYSw9cHd_WFmyLucNrSkA1focLOenehV",
+  },
+  // Stops iOS turning the phone number / email into styled auto-links.
+  formatDetection: { telephone: false, email: false, address: false },
   icons: {
     icon: "/favicon.png",
     apple: "/icon-192.png",
@@ -72,6 +91,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col bg-background text-foreground">
+        <script
+          type="application/ld+json"
+          // Escape "<" so no data value can ever close the script tag early.
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(buildStructuredData()).replace(/</g, "\\u003c"),
+          }}
+        />
         <Providers>
           <ConnectingPathway />
           <a

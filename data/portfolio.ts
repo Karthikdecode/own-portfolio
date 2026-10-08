@@ -24,7 +24,7 @@ export const PERSONAL: PersonalInfo = {
 };
 
 export const HERO: HeroContent = {
-  label: "HELLO, I'M KARTHIK",
+  label: "HELLO, I'M KARTHIK P",
   headline: ["FULL-STACK", "DEVELOPER"],
   paragraph:
     "I build scalable web and mobile applications — REST and real-time APIs, secure auth, and the data layer behind them.",

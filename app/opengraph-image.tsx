@@ -1,7 +1,8 @@
 import { ImageResponse } from "next/og";
 import { SITE_CONFIG } from "@/lib/constants";
 
-export const alt = SITE_CONFIG.title;
+export const alt =
+  "Karthik P — Full Stack Developer. Node.js, React, Next.js, React Native, PostgreSQL.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -22,16 +23,19 @@ export default function OpengraphImage() {
         }}
       >
         <div style={{ display: "flex", fontSize: 28, letterSpacing: 8, color: "#d8a24a" }}>
-          KARTHIK.DEV
+          {SITE_CONFIG.brand}
         </div>
         <div style={{ display: "flex", flexDirection: "column", lineHeight: 1 }}>
+          <div style={{ display: "flex", fontSize: 40, color: "#ecebe4", marginBottom: 24 }}>
+            {SITE_CONFIG.name}
+          </div>
           <div style={{ fontSize: 120, fontWeight: 700 }}>FULL-STACK</div>
           <div style={{ fontSize: 120, fontWeight: 700, color: "#8a8a92" }}>
             DEVELOPER
           </div>
         </div>
         <div style={{ display: "flex", fontSize: 26, color: "#9b988d" }}>
-          Building modern web applications — frontend to backend.
+          Node.js · React · Next.js · React Native · PostgreSQL — Madurai, India
         </div>
       </div>
     ),

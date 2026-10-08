@@ -18,7 +18,7 @@ import { useMounted } from "@/hooks/useMounted";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import { useHeroTimeline } from "@/hooks/useHeroTimeline";
 import { EASE_OUT } from "@/lib/motion";
-import { HERO, PERSONAL } from "@/data/portfolio";
+import { HERO } from "@/data/portfolio";
 import { SOCIALS } from "@/data/socials";
 import { cn } from "@/lib/utils";
 
@@ -93,39 +93,46 @@ export function Hero({ hasPortrait }: HeroProps) {
                 data-hero="text-column"
                 className="order-2 flex flex-col lg:order-1"
               >
-                <motion.p
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.45, ease: EASE_OUT }}
-                  className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground"
-                >
-                  <span className="h-px w-6 bg-accent" aria-hidden />
-                  {HERO.label}
-                </motion.p>
-
-                <h1 className="mt-6 text-display text-[clamp(2.5rem,9vw,6rem)]">
-                  <span className="sr-only">
-                    {PERSONAL.name} — {PERSONAL.role}
+                {/*
+                  The greeting and the headline form one visible H1 —
+                  "Hello, I'm Karthik P · Full-Stack Developer" — so the page's
+                  primary topic is real on-screen text rather than an sr-only
+                  duplicate. The {" "} nodes keep the words separated in the
+                  text that crawlers and screen readers extract; whitespace
+                  between block children never renders, so the layout is
+                  unchanged.
+                */}
+                <h1 className="flex flex-col">
+                  <motion.span
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.45, ease: EASE_OUT }}
+                    className="flex items-center gap-2 font-mono text-xs uppercase tracking-[0.3em] text-muted-foreground"
+                  >
+                    <span className="h-px w-6 bg-accent" aria-hidden />
+                    {HERO.label}
+                  </motion.span>{" "}
+                  <span className="mt-6 block text-display text-[clamp(2.5rem,9vw,6rem)]">
+                    {HERO.headline.map((word, index) => (
+                      <span key={word} className="block overflow-hidden">
+                        <motion.span
+                          className={cn(
+                            "block",
+                            index === 1 && "text-muted-foreground",
+                          )}
+                          initial={{ y: "110%" }}
+                          animate={{ y: "0%" }}
+                          transition={{
+                            duration: 0.7,
+                            ease: EASE_OUT,
+                            delay: 0.1 + index * 0.09,
+                          }}
+                        >
+                          {word}
+                        </motion.span>{" "}
+                      </span>
+                    ))}
                   </span>
-                  {HERO.headline.map((word, index) => (
-                    <span key={word} aria-hidden className="block overflow-hidden">
-                      <motion.span
-                        className={cn(
-                          "block",
-                          index === 1 && "text-muted-foreground",
-                        )}
-                        initial={{ y: "110%" }}
-                        animate={{ y: "0%" }}
-                        transition={{
-                          duration: 0.7,
-                          ease: EASE_OUT,
-                          delay: 0.1 + index * 0.09,
-                        }}
-                      >
-                        {word}
-                      </motion.span>
-                    </span>
-                  ))}
                 </h1>
 
                 <motion.p

@@ -55,6 +55,8 @@ interface RevealLinesProps {
   lineClassName?: string;
   stagger?: number;
   once?: boolean;
+  /** Render as a section heading when the lines are the section's title. */
+  as?: "div" | "h2";
 }
 
 /** Line-by-line clip/slide reveal for large editorial headings. */
@@ -64,9 +66,12 @@ export function RevealLines({
   lineClassName,
   stagger = 0.07,
   once = true,
+  as = "div",
 }: RevealLinesProps) {
+  const Root = as === "h2" ? motion.h2 : motion.div;
+
   return (
-    <motion.div
+    <Root
       className={className}
       initial="hidden"
       whileInView="visible"
@@ -89,9 +94,9 @@ export function RevealLines({
             }}
           >
             {line}
-          </motion.span>
+          </motion.span>{" "}
         </span>
       ))}
-    </motion.div>
+    </Root>
   );
 }

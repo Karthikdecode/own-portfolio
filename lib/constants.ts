@@ -1,29 +1,38 @@
 import type { NavLink, SectionId } from "@/types/portfolio";
 
-/** Canonical site URL (no trailing slash). Override via NEXT_PUBLIC_SITE_URL. */
+/**
+ * Canonical production origin (no trailing slash). Override via
+ * NEXT_PUBLIC_SITE_URL if a custom domain is added later.
+ *
+ * The fallback must be the real production URL: it feeds the canonical tag,
+ * Open Graph URLs, robots.txt and the sitemap. A localhost fallback here meant
+ * the live site told Google its canonical page was http://localhost:3000.
+ */
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
-  "http://localhost:3000";
+  "https://karthikp-portfolio.netlify.app";
 
 export const SITE_CONFIG = {
   name: "Karthik P",
   brand: "KARTHIK.DEV",
-  title: "Karthik P — Full-Stack Developer",
+  title: "Karthik P | Full Stack Developer - Node.js, React & Next.js",
   description:
-    "Full-Stack Developer building scalable web and mobile applications with Node.js, Express.js, React, Next.js, React Native and PostgreSQL.",
+    "Full Stack Developer in Madurai, India, building production-ready web and mobile applications with Node.js, Express.js, React, Next.js, React Native, PostgreSQL, MongoDB and AWS.",
+  jobTitle: "Full Stack Developer",
   url: SITE_URL,
-  ogImage: `${SITE_URL}/images/og.png`,
-  locale: "en_US",
+  locale: "en_IN",
   author: "Karthik P",
+  // A short, honest list. Search engines weigh visible content far more than
+  // this tag; it is here for completeness, not as a ranking lever.
   keywords: [
-    "Full-Stack Developer",
+    "Karthik P",
+    "Full Stack Developer",
+    "Software Developer",
     "Node.js Developer",
     "React Developer",
-    "Next.js",
-    "React Native",
-    "Express.js",
-    "PostgreSQL",
-    "TypeScript",
+    "Next.js Developer",
+    "React Native Developer",
+    "Full Stack Developer Madurai",
     "Portfolio",
   ],
 } as const;
