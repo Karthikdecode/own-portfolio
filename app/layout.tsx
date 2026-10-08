@@ -47,6 +47,10 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true },
   },
   alternates: { canonical: SITE_CONFIG.url },
+  icons: {
+    icon: "/favicon.png",
+    apple: "/icon-192.png",
+  },
 };
 
 export const viewport: Viewport = {

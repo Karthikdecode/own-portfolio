@@ -38,7 +38,7 @@ export function Portrait({
           fill
           priority={priority}
           sizes={sizes ?? "(max-width: 768px) 70vw, 24rem"}
-          className="object-cover object-center grayscale contrast-[1.05]"
+          className="portrait-image object-cover object-center"
           onError={() => setFailed(true)}
         />
       ) : (

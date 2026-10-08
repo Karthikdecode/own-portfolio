@@ -214,6 +214,19 @@ html.lenis body {
   box-shadow: 0 0 12px -3px color-mix(in srgb, var(--accent) 45%, transparent);
 }
 
+/* ------------------------------------------------------------------ */
+/* Identity card portrait treatment.                                   */
+/* Light mode shows natural human color — no tint, just neutral boost.  */
+/* Dark mode keeps the grayscale so it reads against the graphite.     */
+/* ------------------------------------------------------------------ */
+.portrait-image {
+  filter: saturate(1.1) contrast(1.02);
+}
+
+.dark .portrait-image {
+  filter: grayscale(1) contrast(1.05);
+}
+
 /* Idle float for the hero identity card. Lives on its own wrapper element so it
    never collides with the GSAP scroll transform on the layer below it. */
 @keyframes hero-card-float {
